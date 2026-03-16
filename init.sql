@@ -1,0 +1,13 @@
+CREATE TABLE tasks(
+
+id INT AUTO_INCREMENT PRIMARY KEY,
+
+title VARCHAR(255),
+
+priority VARCHAR(50),
+
+due DATE,
+
+status VARCHAR(50)
+
+);

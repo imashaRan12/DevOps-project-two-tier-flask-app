@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Project Dashboard</title>
+
+    <link rel="stylesheet" href="../static/style.css" />
+
+    <script src="../static/script.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Project Dashboard</h1>
+
+      <div class="stats">
+        <div class="card">
+          <h3>Total Tasks</h3>
+          <p>{{ total }}</p>
+        </div>
+
+        <div class="card">
+          <h3>Completed</h3>
+          <p>{{ completed }}</p>
+        </div>
+      </div>
+
+      <div class="task-form">
+        <form action="/add" method="POST">
+          <input name="title" placeholder="Task title" required />
+
+          <select name="priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+
+          <input type="date" name="due" />
+
+          <button>Add Task</button>
+        </form>
+      </div>
+
+      <table>
+        <tr>
+          <th>Task</th>
+          <th>Priority</th>
+          <th>Due</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+
+        {% for task in tasks %}
+
+        <tr>
+          <td>{{ task[1] }}</td>
+          <td>{{ task[2] }}</td>
+          <td>{{ task[3] }}</td>
+          <td>{{ task[4] }}</td>
+
+          <td>
+            <a class="btn complete" href="/complete/{{task[0]}}">Complete</a>
+
+            <a class="btn delete" href="/delete/{{task[0]}}">Delete</a>
+          </td>
+        </tr>
+
+        {% endfor %}
+      </table>
+    </div>
+  </body>
+</html>
