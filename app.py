@@ -1,15 +1,26 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
+import time
 import mysql.connector
 import os
 
 app = Flask(__name__)
 
-db = mysql.connector.connect(
-    host=os.getenv("MYSQL_HOST"),
-    user=os.getenv("MYSQL_USER"),
-    password=os.getenv("MYSQL_PASSWORD"),
-    database=os.getenv("MYSQL_DB")
-)
+for i in range(10):
+    try:
+        db = mysql.connector.connect(
+            host="mysql",
+            user="root",
+            password="root",
+            database="devops"
+        )
+        print("Connected to MySQL ✅")
+        break
+    except Exception as e:
+        print("MySQL not ready, retrying...")
+        time.sleep(5)
+else:
+    raise Exception("Could not connect to MySQL")
+
 @app.route("/")
 def home():
     return render_template("index.html")
